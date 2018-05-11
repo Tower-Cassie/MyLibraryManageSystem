@@ -1,0 +1,27 @@
+/*
+*{margin:0px;}
+
+#main{width:1200px;height:800px;background-color:#999999;margin-left:auto;margin-right:auto;}
+#header{background-size:1200px 159px;background-image:url(../images/bg.jpg);background-repeat:no-repeat;width:1200px;height:159px;margin-top:0px;}
+#header_left{width:508px;height:119px;float:left;}
+#header_right{width:692px;height:119px;float:left;}
+#header_botton{width:1200px;height:40px;float:left;font-size:24px;line-heigh:30px;}
+
+*.menu{width:195px;height:40px;background-color:#6C6;float:left;text-align:center;margin-left:5px;}*/
+*{margin:0px;}
+#header{background-size:1520px 159px;background-image:url(../images/bg.jpg);background-repeat:no-repeat;width:1520px;height:159px;margin-top:0px;}
+#header_left{width:108px;height:109px;float:left;}
+#header_right{width:1412px;height:109px;float:left;}
+#header_right_top{width:1412px;height:25px;float:left;font-size:0px;color:#000;text-align:left}
+#header_right_botton{width:1412px;height:84px;float:left;font-size:64px;color:#000;text-align:left}
+#header_botton{width:1520px;height:40px;}
+*.menu{width:200px;height:40px;font-size:32px;margin-top:5px;color:#3366CC;float:left;text-align:center;margin-left:9px;}
+a:link,a:visited{text-decoration:none;  /*超链接无下划线*/}
+#tab{margin-top:150px;float:left;}
+*.list{background-image:url(../images/more_1.gif);background-color: #FC0;background-position:right center;border:thin solid;background-repeat:no-repeat;font-size:18px;font-family:"华文新魏";line-height:25px;font-weight:bold;text-align:center;}	
+*.shuji {color:#000;font-family:"华文仿宋";font-size:20px;line-height:15px;font-weight:bold;text-align:left;}
+*.foot {color:#000;font-family:"华文仿宋";font-size:12px;line-height:15px;font-weight:bold;text-align:left;}
+*.biankuang {border: thin solid #0C0;}
+
+
+#foot{width:1520px;height:100px;background-image:url(../images/bottom.gif);background-size:1520px 100px;background-repeat:no-repeat;margin-top:20px;}

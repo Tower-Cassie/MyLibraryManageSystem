@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		  http://www.springframework.org/schema/context
+		   http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		   http://www.springframework.org/schema/aop 
+		   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		   org.springframework.orm.hibernate3.HibernateTemplate
+		    http://www.springframework.org/schema/tx 
+		    http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+         http://www.springframework.org/schema/mvc 
+         http://www.springframework.org/schema/mvc/spring-mvc-2.5.xsd"
+ 		xmlns:aop="http://www.springframework.org/schema/aop" 
+ 		xmlns:context="http://www.springframework.org/schema/context"
+ 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	    xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	    xmlns:tx="http://www.springframework.org/schema/tx">
+	    <!-- 使用标签 -->
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package ="cn.gldzkjdx"/>
+	
+<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">		
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/mytest" />
+		<property name="username" value="root" />
+		<property name="password" value="19950219" />
+	</bean> 
+	
+	<!--配置hibernate的会话工厂sessionFactory  -->
+	<bean id="SessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<!-- 数据源采用上面配置的 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描bean包下的实体类 -->
+		<!-- 配置实体类 -->
+		<property name="annotatedClasses">
+			<list>
+				<value>cn.gldzkjdx.bean.Book</value>
+				<value>cn.gldzkjdx.bean.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 注入DAO层需要用hibernateTemplate的类
+	<bean id="BookDAO" class="cn.gldzkjdx.DAOImple.BookDAOImple"> 
+		<property name="sessionFactory" ref="SessionFactory"></property>
+	</bean> 
+	-->
+	
+	<!-- 配置hibernateTemplate 相当于jdbc-->
+	<bean id = "hibernateTemplate" class ="org.springframework.orm.hibernate3.HibernateTemplate">
+			<property name="sessionFactory" ref = "SessionFactory"></property>
+	</bean>	
+	
+	<!-- 注入DAO层需要用hibernateTemplate的类-->
+	<bean id="BookDAO" class="cn.gldzkjdx.DAOImple.BookDAOImple"> 
+		<!-- 为此类注入一个属性，这样在类中就可以获取到这个对象 -->
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+		
+	</bean> 
+	<bean id="UserDAO" class="cn.gldzkjdx.DAOImple.UserDAOImple"> 
+	<!-- 功能：HibernateTemplate hibernateTemplate = new HibernateTemplate()-->
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean> 
+	
+	<bean id="UserService" class="cn.gldzkjdx.ServiceImple.UserServiceImple"> 
+		<property name="userDAO" ref="UserDAO"></property>
+	</bean> 
+	<bean id="BookService" class="cn.gldzkjdx.ServiceImple.BookServiceImple"> 
+		<property name="bookDAO" ref="BookDAO"></property>
+	</bean> 
+	
+	
+	
+	<!-- hibernate事务管理 
+	<bean name ="transactionManager" class ="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	 配置sessionFactory 
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	-->
+	<!-- 事务管理规则 -->
+	<!--
+	<bean id = "hibernateTransactionAttributeSource" class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="properties">
+			<props>-->
+			<!-- 所有方法加上事务 -->
+			<!--
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="BookService" class ="org.springframework.transaction.interceptor.TransactionProxyFactory">
+		<property name="transactionManager" ref = "transactionManager"></property>
+		<property name="target" >
+			<bean ></bean>
+			</property>
+			<property name="transactionAttributeSource" ref = "hibernateTransactionAttributeSource"></property>
+	</bean>
+	-->
+</beans> 
+
+

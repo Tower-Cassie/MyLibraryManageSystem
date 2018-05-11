@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	 <constant name="struts.devMode" value="true" />
+	<package name="user" extends="struts-default" >
+		<action name="login" class="cn.gldzkjdx.action.LoginAction">
+		<result name="adminsuccess">/adminmain.jsp</result>
+		<result name="usersuccess">/usermain.jsp</result>
+		</action>
+		<action name="addUser" class="cn.gldzkjdx.action.AddUserAction">
+		<result name="success">/manageuser.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		<action name="updateUser" class="cn.gldzkjdx.action.UpdateUserAction">
+		<result name="success">/manageuser.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		<action name="deleteUser" class="cn.gldzkjdx.action.DeleteUserAction">
+		<result name="success">/manageuser.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="book" extends="struts-default" >
+		<action name="addBook" class="cn.gldzkjdx.action.AddBookAction">
+		<result name="success">/showBook.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		<action name="updateBook" class="cn.gldzkjdx.action.UpdateBookAction">
+		<result name="success">/showBook.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		<action name="deleteBook" class="cn.gldzkjdx.action.DeleteBookAction">
+		<result name="success">/showBook.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		<action name="operateBook" class="cn.gldzkjdx.action.OperateBookAction">
+		<result name="success">/showUserBook.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		
+		<action name="returnBook" class="cn.gldzkjdx.action.ReturnBookAction">
+		<result name="success">/showUserBook.jsp</result>
+			<result name="fail">/info.jsp</result>
+		</action>
+		
+		
+		
+		
+	</package>
+	
+</struts>    
